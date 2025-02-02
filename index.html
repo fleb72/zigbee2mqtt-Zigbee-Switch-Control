@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Switch Control</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>           
+            <div class="toggle">
+  		<input type="checkbox" id="btn" disabled> 
+  		<label for="btn">
+    			<span class="track">
+      				<span class="txt"></span>
+    			</span>
+    			<span class="thumb">|||</span>
+  		</label>
+	    </div>   
+ 
+        <script>
+            // Création d'une connexion WebSocket à l'URL spécifiée
+            const ws = new WebSocket("ws://192.168.0.20:8000/ws");
+ 
+            // Fonction appelée lors de la réception d'un message
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                // Met à jour l'état de la checkbox en fonction de la donnée reçue
+                document.getElementById("btn").checked = data.state;
+            };
+        </script>
+    </body>
+</html>
